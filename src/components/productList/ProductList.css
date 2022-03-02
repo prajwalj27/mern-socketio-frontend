@@ -1,0 +1,43 @@
+.productList {
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+}
+
+.productTable {
+  margin-top: 50px;
+  width: 70%;
+}
+
+.actionbuttons {
+  display: flex;
+}
+
+.viewImg {
+  color: #8b8bc9;
+  cursor: pointer;
+}
+
+.editInfo {
+  color: #537561;
+  cursor: pointer;
+}
+
+.deleteInfo {
+  color: #ac5e5e;
+  cursor: pointer;
+}
+
+.actionDelete,
+.actionEdit {
+  background-color: transparent;
+  border: none;
+  width: 17%;
+  border-radius: 7px;
+}
+.actionDelete:hover,
+.actionViewImg:hover,
+.actionEdit:hover {
+  background-color: #f3f3f3;
+}
