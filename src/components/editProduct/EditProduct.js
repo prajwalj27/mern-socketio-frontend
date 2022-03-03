@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import { Button, TextArea, Form } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 
 import "./EditProduct.css";
 
@@ -9,7 +9,7 @@ const EditProduct = () => {
     name: "",
     price: "",
     rating: "",
-    description: "",
+    brand: "",
     records: [],
   });
   const params = useParams();
@@ -55,7 +55,7 @@ const EditProduct = () => {
       name: form.name,
       price: form.price,
       rating: form.rating,
-      description: form.description,
+      brand: form.brand,
     };
     await fetch(`http://localhost:5000/update/${params.id}`, {
       method: "POST",
@@ -108,14 +108,12 @@ const EditProduct = () => {
             </div>
           </Form.Field>
           <Form.Field>
-            <label htmlFor="description">Description</label>
-            <TextArea
-              rows={2}
-              maxlength="300"
-              placeholder="Give a short description of the product"
-              id="description"
-              value={form.description}
-              onChange={(e) => updateForm({ description: e.target.value })}
+            <label htmlFor="brand">brand</label>
+            <input
+              placeholder="Enter the product brand"
+              id="brand"
+              value={form.brand}
+              onChange={(e) => updateForm({ brand: e.target.value })}
             />
           </Form.Field>
           <Button positive type="submit">

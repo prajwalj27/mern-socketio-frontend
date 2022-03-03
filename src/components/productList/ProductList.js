@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Header, Table, Rating, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { io } from "socket.io-client";
 
 import "./ProductList.css";
 
@@ -13,12 +14,17 @@ const Product = (props) => {
         </Header>
       </Table.Cell>
       <Table.Cell>
-        <Rating icon="star" disabledEdit defaultRating={props.record.rating} maxRating={5} />
+        <Rating
+          icon="star"
+          disabled
+          defaultRating={props.record.rating}
+          maxRating={5}
+        />
       </Table.Cell>
       <Table.Cell singleLine textAlign="center">
         {props.record.price}
       </Table.Cell>
-      <Table.Cell>{props.record.description}</Table.Cell>
+      <Table.Cell>{props.record.brand}</Table.Cell>
       <Table.Cell className="actionButtons" textAlign="center">
         <Link to={`/edit/${props.record._id}`}>
           <button className="actionEdit">
@@ -40,6 +46,11 @@ const Product = (props) => {
 
 const ProductList = () => {
   const [records, setRecords] = useState([]);
+  const [socketData, setSocketData] = useState([]);
+  const [socket, setSocket] = useState(null);
+  useEffect(() => {
+    setSocket(io("ws://localhost:5001"));
+  }, []);
 
   useEffect(() => {
     async function getRecords() {
@@ -54,11 +65,34 @@ const ProductList = () => {
       const records = await response.json();
       setRecords(records);
     }
-
+    console.log("change")
     getRecords();
-
     return;
   }, [records.length]);
+
+
+  useEffect(() => {
+    if (socket === null || records === null) return
+    socket?.emit("send-changes", records)
+    return;
+  }, [socket, records]);
+
+  useEffect(() => {
+    if (socket === null || records === null) return
+    socket?.emit("send-changes", records)
+    return;
+  }, [socket, records]);
+
+  useEffect(() => {
+    console.log(socketData)
+    socket?.on("receive-changes", changedData => {
+      setSocketData(changedData)
+    })
+    return;
+  }, [socket, socketData]);
+
+
+  
 
   async function deleteRecord(id) {
     await fetch(`http://localhost:5000/${id}`, {
@@ -70,7 +104,7 @@ const ProductList = () => {
   }
 
   const recordList = () => {
-    return records.map((record) => {
+    return socketData.map((record) => {
       return (
         <Product
           key={record._id}
@@ -91,7 +125,7 @@ const ProductList = () => {
               <Table.HeaderCell>Product</Table.HeaderCell>
               <Table.HeaderCell>Rating</Table.HeaderCell>
               <Table.HeaderCell>Price ( &#8377;)</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
+              <Table.HeaderCell>Brand</Table.HeaderCell>
               <Table.HeaderCell>Action</Table.HeaderCell>
             </Table.Row>
           </Table.Header>

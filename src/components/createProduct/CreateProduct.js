@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Button, TextArea, Form } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
+import { Socket } from "socket.io-client";
 
 import "./CreateProduct.css";
 
@@ -10,7 +11,7 @@ const CreateProduct = () => {
     name: "",
     price: "",
     rating: "",
-    description: "",
+    brand: "",
   });
 
   function updateForm(value) {
@@ -36,7 +37,7 @@ const CreateProduct = () => {
       return;
     });
 
-    setForm({ name: "", price: "", rating: "", description: "" });
+    setForm({ name: "", price: "", rating: "", brand: "" });
     navigate("/");
   }
 
@@ -80,14 +81,12 @@ const CreateProduct = () => {
             </div>
           </Form.Field>
           <Form.Field>
-            <label htmlFor="description">Description</label>
-            <TextArea
-              rows={2}
-              maxlength="300"
-              placeholder="Give a short description of the product"
-              id="description"
-              value={form.description}
-              onChange={(e) => updateForm({ description: e.target.value })}
+            <label htmlFor="brand">Brand</label>
+            <input
+              placeholder="Enter the product brand"
+              id="brand"
+              value={form.brand}
+              onChange={(e) => updateForm({ brand: e.target.value })}
             />
           </Form.Field>
           <Button positive type="submit">
