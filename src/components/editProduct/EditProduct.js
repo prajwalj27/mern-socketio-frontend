@@ -19,7 +19,7 @@ const EditProduct = () => {
     async function fetchData() {
       const id = params.id.toString();
       const response = await fetch(
-        `http://localhost:5000/products/${params.id.toString()}`
+        `https://vast-earth-94271.herokuapp.com/products/${params.id.toString()}`
       );
 
       if (!response.ok) {
@@ -57,7 +57,7 @@ const EditProduct = () => {
       rating: form.rating,
       brand: form.brand,
     };
-    await fetch(`http://localhost:5000/update/${params.id}`, {
+    await fetch(`https://vast-earth-94271.herokuapp.com/update/${params.id}`, {
       method: "POST",
       body: JSON.stringify(editedProduct),
       headers: {

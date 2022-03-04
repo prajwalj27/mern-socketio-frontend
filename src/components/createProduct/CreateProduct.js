@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Button, Form } from "semantic-ui-react";
-import { Socket } from "socket.io-client";
 
 import "./CreateProduct.css";
 
@@ -26,7 +25,7 @@ const CreateProduct = () => {
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newProduct = { ...form };
 
-    await fetch("http://localhost:5000/products/add", {
+    await fetch("https://vast-earth-94271.herokuapp.com/products/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -49,12 +49,13 @@ const ProductList = () => {
   const [socketData, setSocketData] = useState([]);
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-    setSocket(io("ws://localhost:5001"));
+    setSocket(io("https://obscure-thicket-53205.herokuapp.com/"));
   }, []);
 
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5000/products/`);
+      const response = await fetch(`https://vast-earth-94271.herokuapp.com/products`);
+      // const response = await fetch(`http://localhost:5000/products/`);
 
       if (!response.ok) {
         const message = `An error occured: ${response.statusText}`;
