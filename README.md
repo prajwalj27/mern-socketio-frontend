@@ -1,5 +1,9 @@
 # Getting Started with Create React App
 
+The Backend repo for this project can be found in these links-  
+- [Server (using NodeJs, ExpressJs and MongoDB)](https://github.com/prajwalj27/mern-socketio-backend)
+- [Socket (using Socket.io)](https://github.com/prajwalj27/mern-socketio-socket)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
